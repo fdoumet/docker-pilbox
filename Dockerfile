@@ -19,4 +19,6 @@ RUN apt-get update && apt-get install -y \
 COPY --from=0 /wheels /wheels
 RUN pip install --disable-pip-version-check --no-index --no-deps /wheels/* && rm -rf /wheels requirements.txt
 
-ENTRYPOINT ["pilbox", "--config=./config/server.conf"]
+COPY server.conf server.conf
+
+ENTRYPOINT ["pilbox", "--config=server.conf"]
