@@ -3,6 +3,8 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y \
     install libtiff5-dev libjpeg62-turbo-dev zlib1g-dev \
     libxml2-dev libxslt1-dev libfreetype6-dev libwebp-dev
 
+RUN pip install https://github.com/fdoumet/pilbox/archive/master.zip --no-deps
+
 RUN mkdir /wheels
 COPY requirements.txt requirements.txt
 RUN pip wheel --disable-pip-version-check --no-deps --wheel-dir /wheels -r requirements.txt
