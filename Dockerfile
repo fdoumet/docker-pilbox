@@ -1,4 +1,4 @@
-FROM python:3.6.5-stretch
+FROM python:3.6.5
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y \
     install libtiff5-dev libjpeg62-turbo-dev zlib1g-dev \
     libxml2-dev libxslt1-dev libfreetype6-dev libwebp-dev
@@ -8,7 +8,7 @@ RUN pip wheel --disable-pip-version-check --no-deps --wheel-dir /wheels https://
 COPY requirements.txt requirements.txt
 RUN pip wheel --disable-pip-version-check --no-deps --wheel-dir /wheels -r requirements.txt
 
-FROM python:3.6.5-slim-stretch
+FROM python:3.6.5
 
 
 RUN apt-get update && apt-get install -y \
@@ -17,6 +17,10 @@ RUN apt-get update && apt-get install -y \
     &&  apt-get autoremove -y &&  apt-get clean -y
 
 COPY --from=0 /wheels /wheels
+RUN ln -s /usr/lib/x86_64-linux-gnu/libz.so /lib/
+RUN ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /lib/
+RUN pip install -U pip
+RUN pip install -U Pillow-SIMD==5.2.0.post1
 RUN pip install --disable-pip-version-check --no-index --no-deps /wheels/* && rm -rf /wheels requirements.txt
 
 COPY server.conf server.conf

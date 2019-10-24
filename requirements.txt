@@ -4,6 +4,6 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-pillow==5.2.0             # via pilbox
+#pillow-simd==5.2.0.post1
 sphinx-me==0.2.1          # via pilbox
 tornado==5.1.0            # via pilbox
