@@ -20,7 +20,7 @@ COPY --from=0 /wheels /wheels
 RUN ln -s /usr/lib/x86_64-linux-gnu/libz.so /lib/
 RUN ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /lib/
 RUN pip install -U pip
-RUN pip install -U Pillow-SIMD==5.2.0.post1
+RUN CC="cc -mavx2" pip install -U Pillow-SIMD==5.2.0.post1
 RUN pip install --disable-pip-version-check --no-index --no-deps /wheels/* && rm -rf /wheels requirements.txt
 
 COPY server.conf server.conf
