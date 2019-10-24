@@ -30,7 +30,7 @@ spec:
       nodeSelector:
         cloud.google.com/gke-nodepool: uber-pool
       containers:
-      - image: gcr.io/shoebox-encoding/mlvx-pilbox:1.3.4
+      - image: gcr.io/shoebox-encoding/mlvx-pilbox:1.3.4-simd
         imagePullPolicy: Always
         name: mlvx-pilbox
         ports:
