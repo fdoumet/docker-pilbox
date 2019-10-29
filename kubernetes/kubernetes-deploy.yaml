@@ -19,7 +19,7 @@ spec:
   strategy:
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
     type: RollingUpdate
   template:
     metadata:
@@ -30,7 +30,7 @@ spec:
       nodeSelector:
         cloud.google.com/gke-nodepool: uber-pool
       containers:
-      - image: gcr.io/shoebox-encoding/mlvx-pilbox:1.3.4-simd
+      - image: gcr.io/shoebox-encoding/mlvx-pilbox:1.3.6
         imagePullPolicy: Always
         name: mlvx-pilbox
         ports:
@@ -42,6 +42,13 @@ spec:
           requests:
             cpu: 1
             memory: 10Gi
+        readinessProbe:
+          httpGet:
+             path: /ping
+             port: 80
+             initialDelaySeconds: 5
+             periodSeconds: 5
+             successThreshold: 1
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
