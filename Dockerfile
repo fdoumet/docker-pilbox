@@ -22,9 +22,8 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /lib/
 RUN pip install -U pip
 
 # Build regular Pillow here so that other libraries below try to install it themselves
-RUN pip install pillow==5.2.0
+RUN pip install pillow==5.2.0 ring==0.7.3 requests==2.22.0
 RUN pip install --disable-pip-version-check --no-index --no-deps /wheels/* && rm -rf /wheels requirements.txt
-RUN pip install requests
 # Replace Pillow with Pillow-SIMD. This has to be the last step, because otherwise the other libraries installed via `pip-install` will still try to install Pillow and overwrite Pillow-SIMD since they have different package names.
 RUN CC="cc -mavx2" pip3 install -U pillow-simd==5.2.0.post1
 
