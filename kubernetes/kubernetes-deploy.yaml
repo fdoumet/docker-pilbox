@@ -38,17 +38,17 @@ spec:
           protocol: TCP
         resources:
           limits:
-            memory: 20Gi
+            memory: 10Gi
           requests:
             cpu: 1
-            memory: 10Gi
+            memory: 4Gi
         readinessProbe:
           httpGet:
-             path: /ping
-             port: 80
-             initialDelaySeconds: 5
-             periodSeconds: 5
-             successThreshold: 1
+            path: /ping
+            port: 8888
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
